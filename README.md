@@ -1,129 +1,105 @@
-🔐 Descrição
-Este projeto implementa uma fechadura eletrônica com ESP32 utilizando um leitor RFID MFRC522, permitindo controlar o acesso via tags RFID previamente cadastradas. O sistema valida as tags lidas e, se autorizadas, aciona um servo motor que simula a abertura da fechadura. Também inclui recursos como cadastro e remoção de tags, armazenamento em EEPROM, e feedback via buzzer e LED.
+# 🔐 Fechadura Eletrônica com ESP32 e RFID
 
-📦 Tecnologias e Componentes
-ESP32 DevKit v1
+Este projeto implementa uma **fechadura eletrônica com ESP32**, utilizando um **leitor RFID MFRC522** e um **servo motor** para simular o mecanismo de travamento. O sistema permite o cadastro, validação e exclusão de tags RFID autorizadas, armazenando as permissões diretamente na **EEPROM**, garantindo persistência mesmo após reinicializações.
 
-Leitor RFID MFRC522
+---
 
-Tags RFID (13.56 MHz)
+## ⚙️ Funcionalidades
 
-Servo motor SG90
+- 📗 Leitura de cartões RFID (13.56 MHz)
+- ✅ Validação de acesso com base em tags autorizadas
+- ➕ Cadastro de novas tags via tag mestre
+- ➖ Remoção de tags da memória
+- 🔐 Abertura da “fechadura” com servo motor SG90
+- 💾 Armazenamento persistente em EEPROM
+- 🔊 Feedback visual e sonoro (LEDs e buzzer)
+- 🔁 Reset total com botão ou tag mestre
 
-Buzzer piezoelétrico
+---
 
-LEDs indicadores
+## 🧰 Componentes Utilizados
 
-EEPROM (armazenamento das tags autorizadas)
+- ESP32 DevKit V1
+- MFRC522 RFID Reader
+- Tags RFID (cartão e chaveiro)
+- Servo motor SG90
+- Buzzer piezoelétrico
+- LEDs (verde e vermelho)
+- Push-button
+- Jumpers e protoboard
 
-Arduino IDE com bibliotecas:
+---
 
-MFRC522
+## 🧠 Bibliotecas Necessárias
 
-Servo
+- `MFRC522`
+- `SPI`
+- `Servo`
+- `EEPROM`
 
-EEPROM
+Todas disponíveis na **Arduino IDE**.
 
-SPI
+---
 
-⚙️ Funcionalidades
-📗 Leitura de tags RFID
+## 🔌 Esquema de Ligações
 
-🔐 Validação contra tags autorizadas
+| Componente | ESP32 (GPIO) |
+|------------|--------------|
+| SDA (RFID) | 21           |
+| SCK        | 18           |
+| MOSI       | 23           |
+| MISO       | 19           |
+| RST        | 22           |
+| Servo      | 27 (exemplo) |
+| Buzzer     | 26 (exemplo) |
+| LED Verde  | 32           |
+| LED Verm.  | 33           |
+| Botão      | 25           |
 
-✅ Acionamento do servo motor para simular abertura
+---
 
-🧠 Armazenamento das tags em memória EEPROM
+## 🚀 Como Executar
 
-➕ Modo de cadastro de novas tags
+1. Instale a Arduino IDE e o pacote do ESP32.
+2. Instale as bibliotecas mencionadas acima.
+3. Conecte os componentes conforme o esquema.
+4. Altere o código para definir uma **tag mestre** no início.
+5. Compile e envie para o ESP32.
+6. Acompanhe a leitura pelo **Monitor Serial** (baud: 115200).
 
-➖ Modo de exclusão de tags
+---
 
-🔊 Sinalização via buzzer e LED
+## 🖼️ Imagens (adicione em `/images`)
 
-🔄 Reset de memória via botão (ou tag mestre)
+- `images/prototipo.jpg` — Foto real do projeto montado.
+- `images/esquema_bb.png` — Esquema eletrônico (Fritzing).
 
-📁 Estrutura de Diretórios
-bash
-Copiar
-Editar
-Trabalho_ESP32/
-├── src/
-│   └── main.ino            # Código principal do projeto
-├── images/
-│   ├── esquema_bb.png      # Esquema de ligação (Fritzing ou similar)
-│   └── prototipo.jpg       # Foto real do circuito
-├── docs/
-│   └── funcionamento.md    # Detalhes do funcionamento interno
-├── data/                   # EEPROM dump ou dados extras
-├── README.md
-└── LICENSE
-🔌 Esquema de Ligação (MFRC522 com ESP32)
-MFRC522	ESP32 (GPIO)
-SDA	D21
-SCK	D18
-MOSI	D23
-MISO	D19
-RST	D22
-3.3V	3.3V
-GND	GND
+---
 
-Obs: pinos podem variar, confirme no código #define.
+## 📈 Melhorias Futuras
 
-🧪 Como Usar
-1. ⚙️ Instalação
-Instale a Arduino IDE
+- Interface web para gerenciamento remoto
+- Registro de logs via Wi-Fi ou SD card
+- Autenticação por múltiplos fatores (RFID + senha)
+- Integração com app mobile via Bluetooth
 
-Instale as bibliotecas via Gerenciador de Bibliotecas:
+---
 
-MFRC522
+## 📄 Licença
 
-Servo
+Este projeto está licenciado sob a **Licença MIT**. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-EEPROM (já incluída)
+---
 
-Configure a placa como ESP32 Dev Module
+## 🤝 Contribuição
 
-2. 🛠️ Upload e Teste
-Conecte o ESP32 via USB
+Contribuições são bem-vindas! Sinta-se livre para abrir issues, pull requests ou sugerir melhorias.
 
-Altere o código para definir uma tag mestre
+---
 
-Envie para o ESP32
+## 👤 Autor
 
-No monitor serial (baud: 115200), acompanhe as leituras
+**Eduardo Sato**  
+🔗 [LinkedIn](https://www.linkedin.com/in/eduardosato)  
+📁 [Repositório no GitHub](https://github.com/EduardoSato22)
 
-3. 🧾 Cadastro de Tags
-Aproxime a tag mestre
-
-Entre no modo de cadastro
-
-Aproxime as novas tags
-
-Use o botão físico ou comandos via Serial para salvar
-
-📸 Imagens do Projeto
-
-Protótipo com ESP32, leitor RFID, servo e LED.
-
-
-Esquema de ligação no Fritzing.
-
-🔐 Segurança
-Tags armazenadas na EEPROM permanecem após reboot
-
-Sistema só responde a tags autorizadas
-
-Pode-se configurar um “modo manutenção” com botão físico
-
-🧠 Melhorias Futuras
-Interface web para cadastro/remoção de tags
-
-Integração com banco de dados via Wi-Fi
-
-Autenticação multifatorial (RFID + senha)
-
-Log de acessos em tempo real
-
-📄 Licença
-Este projeto está licenciado sob a MIT License – veja o arquivo LICENSE para detalhes.
